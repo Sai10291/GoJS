@@ -70,38 +70,15 @@ input[type="number"] {
     var hasRandomSizes = document.getElementById("randomSizes").checked;
 
     // create and assign a new model
-    var nodeDataArray = generateNodeData(minNodes, maxNodes, minChil, maxChil, hasRandomSizes);
-    myDiagram.model = new go.TreeModel(nodeDataArray);
-
+   
     // update the diagram layout customized by the various control values
     layout();
   }
 
   // Creates a random number (between MIN and MAX) of randomly colored nodes.
-  function generateNodeData(minNodes, maxNodes, minChil, maxChil, hasRandomSizes) {
-    var nodeArray = [];
-    if (minNodes === undefined || isNaN(minNodes) || minNodes < 1) minNodes = 1;
-    if (maxNodes === undefined || isNaN(maxNodes) || maxNodes < minNodes) maxNodes = minNodes;
-
-    // Create a bunch of node data
-    var numNodes = Math.floor(Math.random() * (maxNodes - minNodes + 1)) + minNodes;
-    for (var i = 0; i < numNodes; i++) {
-      nodeArray.push({
-        key: i,  // the unique identifier
-        // "parent" is set by code below that assigns children
-        text: i.toString(),  // some text to be shown by the node template
-        fill: go.Brush.randomColor(),  // a color to be shown by the node template
-        size: (hasRandomSizes) ? new go.Size(Math.random()*50 + 20, Math.random()*50 + 20) : new go.Size(30, 30)
-      });
-    }
-
+ 
     // Randomize the node data
-    for (i = 0; i < nodeArray.length; i++) {
-      var swap = Math.floor(Math.random() * nodeArray.length);
-      var temp = nodeArray[swap];
-      nodeArray[swap] = nodeArray[i];
-      nodeArray[i] = temp;
-    }
+  
 
     // Takes the random collection of node data and creates a random tree with them.
     // Respects the minimum and maximum number of links from each node.
@@ -305,11 +282,11 @@ input[type="number"] {
       <br />
       <br />
       <b>New Tree</b><br />
-      MinNodes: <input type="number" width="2" id="minNodes" value="20" /><br />
-      MaxNodes: <input type="number" width="2" id="maxNodes" value="100" /><br />
-      MinChildren: <input type="number" width="2" id="minChil" value="1" /><br />
-      MaxChildren: <input type="number" width="2" id="maxChil" value="3" /><br />
-      Random Sizes: <input type="checkbox" id="randomSizes" /><br />
+      MinNodes: <input type="number" width="2" id="minNodes" value="5" /><br />
+      MaxNodes: <input type="number" width="2" id="maxNodes" value="20" /><br />
+      MinChildren: <input type="number" width="2" id="minChil" value="5" /><br />
+      MaxChildren: <input type="number" width="2" id="maxChil" value="5" /><br />
+      
       <button type="button" onclick="rebuildGraph()">Generate Tree</button>
     </span>
     <span style="display: inline-block; vertical-align: top; padding: 5px">
